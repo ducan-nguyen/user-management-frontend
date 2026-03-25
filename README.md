@@ -46,7 +46,7 @@ user-management/
 
 1️⃣ Clone the repository
 
-git clone https://github.com/YOUR_USERNAME/user-management.git
+git clone https://github.com/YOUR_USERNAME/ducan-nguyen.git
 cd user-management
 
 2️⃣ Backend Setup (Spring Boot)
@@ -91,7 +91,7 @@ DELETE| /api/users/{id}| Delete user
 📫 Contact
 
 - Email: your-email@gmail.com
-- GitHub: https://github.com/YOUR_USERNAME
+- GitHub: https://github.com/ducan-nguyen
 
 ---
 
