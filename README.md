@@ -90,7 +90,7 @@ DELETE| /api/users/{id}| Delete user
 
 📫 Contact
 
-- Email: your-email@gmail.com
+- Email: ducan.nguyen9801@gmail.com
 - GitHub: https://github.com/ducan-nguyen
 
 ---
