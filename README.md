@@ -2,34 +2,62 @@
 
 📌 Description
 
-This project is a User Management System that provides authentication and authorization using JWT.
-It allows administrators to manage users, roles, and permissions efficiently.
+This is a fullstack User Management System built with ReactJS and Spring Boot, providing authentication and role-based authorization using JWT.
+
+The application allows administrators to manage users efficiently with features such as search, pagination, and role control.
 
 ---
 
 🛠 Tech Stack
 
-- Frontend: ReactJS
-- Backend: Spring Boot
-- Database: MySQL
-- Authentication: JWT (JSON Web Token)
-- Tools: Postman, Git
+Frontend
+
+- ReactJS (Hooks, Context API, Redux Toolkit)
+- HTML5, CSS3, Responsive Design
+- Axios (API integration)
+
+Backend
+
+- Java, Spring Boot
+- RESTful API
+- JWT Authentication & Authorization
+
+Database
+
+- MySQL
 
 ---
 
 ⚙️ Features
 
-- 🔐 User Registration & Login
-- 🔑 JWT Authentication & Authorization
+- 🔐 User Authentication (Login / Register)
+- 🛡 Role-based Authorization (Admin, Manager, User)
 - 👤 CRUD User Management
-- 🛡 Role-based Access Control (RBAC)
-- 📦 RESTful API design
+- 🔎 Search, Pagination, Sorting
+- 🔄 REST API Integration
+- ⚡ Optimized performance for large datasets
 
 ---
 
-🖥️ Demo
+🖥️ Screenshots
 
-«(Add your demo link here if available)»
+«(Add your screenshots here)»
+
+Example:
+
+![Login](./screenshots/login.png)
+![Dashboard](./screenshots/dashboard.png)
+
+---
+
+🔗 Demo
+
+«(Add your deployed link here)»
+
+Example:
+
+Frontend: https://your-frontend.vercel.app  
+Backend API: https://your-backend.onrender.com
 
 ---
 
@@ -44,15 +72,19 @@ user-management/
 
 ⚙️ Installation & Setup
 
-1️⃣ Clone the repository
+1️⃣ Clone repository
 
-git clone https://github.com/ducan-nguyen/user-management-frontend.git
+git clone https://github.com/ducan-nguyen/user-management.git
 cd user-management
+
+---
 
 2️⃣ Backend Setup (Spring Boot)
 
 cd backend
 mvn spring-boot:run
+
+---
 
 3️⃣ Frontend Setup (React)
 
@@ -62,7 +94,7 @@ npm start
 
 ---
 
-🔗 API Endpoints (Example)
+🔗 API Endpoints (Sample)
 
 Method| Endpoint| Description
 POST| /api/auth/login| User login
@@ -73,26 +105,20 @@ DELETE| /api/users/{id}| Delete user
 
 ---
 
-📸 Screenshots
-
-«(Add screenshots of your UI here)»
-
----
-
 📈 Future Improvements
 
-- Deploy to cloud (Render / AWS)
+- Deploy to cloud (Vercel / Render / AWS)
 - Add email verification
-- Improve UI/UX
+- Improve UI/UX design
 - Add unit & integration tests
 
 ---
 
 📫 Contact
 
-- Email: ducan.nguyen9801@gmail.com
 - GitHub: https://github.com/ducan-nguyen
+- Email: ducan.nguyen9801@gmail.com
 
 ---
 
-⭐ If you find this project useful, please give it a star!
+⭐ If you find this project useful, feel free to give it a star!
