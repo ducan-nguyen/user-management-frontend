@@ -46,7 +46,7 @@ user-management/
 
 1️⃣ Clone the repository
 
-git clone https://github.com/YOUR_USERNAME/ducan-nguyen.git
+git clone https://github.com/ducan-nguyen/user-management.git
 cd user-management
 
 2️⃣ Backend Setup (Spring Boot)
