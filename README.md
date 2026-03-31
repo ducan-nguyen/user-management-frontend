@@ -11,6 +11,7 @@ Develop Full-stack development skills
 
 🏗️ System Architecture
 text
+
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │    Frontend     │────▶│    Backend      │────▶│    Database     │
 │    (ReactJS)    │     │  (Spring Boot)  │     │    (MySQL)      │
@@ -22,6 +23,7 @@ text
    - Hooks                - Services                 - Roles
    - Context              - Repositories             - Tokens
    - Services             - Security/JWT              - Audit Logs
+
 
 🛠️ Technologies Used
 Backend
@@ -47,6 +49,7 @@ React Icons	4.11.0	Icons
 
 📁 Project Structure
 text
+
 user-management-system/
 │
 ├── backend/                          # Spring Boot Application
@@ -149,6 +152,7 @@ user-management-system/
         ├── App.jsx
         ├── App.css
         └── index.js
+
      
 ✨ Key Features
 1. Authentication & Authorization
