@@ -185,7 +185,7 @@ Your Name
 
 Email: ducan.nguyen9801@gmail.com
 
-GitHub: github.com/ducan-nguyen
+GitHub: [github.com/ducan-nguyen](https://github.com/ducan-nguyen)
 
 🙏 Acknowledgments
 Thank you for your interest in this project! This application was built for learning purposes to develop Full-stack development skills. All contributions and feedback are highly valuable for improving the project.
