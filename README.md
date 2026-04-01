@@ -183,11 +183,9 @@ This project is distributed under the MIT license.
 👨‍💻 Author
 Your Name
 
-Email: your.email@example.com
+Email: ducan.nguyen9801@gmail.com
 
-GitHub: github.com/your-username
-
-LinkedIn: linkedin.com/in/your-profile
+GitHub: github.com/ducan-nguyen
 
 🙏 Acknowledgments
 Thank you for your interest in this project! This application was built for learning purposes to develop Full-stack development skills. All contributions and feedback are highly valuable for improving the project.
