@@ -30,7 +30,7 @@ Git
 
 1. Clone Repository
 bash
-git clone https://github.com/your-username/user-management-system.git
+git clone https://github.com/ducan-nguyen/user-management-system.git
 
 cd user-management-system
 
