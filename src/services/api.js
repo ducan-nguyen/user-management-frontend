@@ -14,6 +14,7 @@ api.interceptors.request.use(
   (config) => {
     console.log(`${config.method.toUpperCase()} ${config.url}`, config.data || '');
     const token = localStorage.getItem('token');
+    console.log("TOKEN:", token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

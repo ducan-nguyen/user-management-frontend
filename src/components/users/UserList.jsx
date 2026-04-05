@@ -153,31 +153,29 @@ const UserList = () => {
   }, [location.state]);
 
   const fetchUsers = async () => {
-    try {
-      setLoading(true);
-      console.log(`Fetching page ${currentPage}, size ${pageSize}`);
+  try {
+    setLoading(true);
+    console.log(`Fetching page ${currentPage}, size ${pageSize}`);
 
-      // Gọi API với page hiện tại (backend page bắt đầu từ 0)
-      const data = await userService.getAll(currentPage, pageSize);
+    const data = await userService.getAll(currentPage, pageSize);
 
-      if (data?.content) {
-        console.log(
-          `Received ${data.content.length} users, total: ${data.totalElements}`
-        );
-        console.log(
-          `Total pages: ${data.totalPages}, current page: ${data.pageable?.pageNumber}`
-        );
-
-        setUsers(data.content);
-        setTotalElements(data.totalElements);
-        setTotalPages(data.totalPages);
-      }
-    } catch (error) {
-      toast.error("Failed to fetch users");
-    } finally {
-      setLoading(false);
+    if (Array.isArray(data)) {
+      // Backend trả array
+      setUsers(data);
+      setTotalElements(data.length);
+      setTotalPages(1);
+    } else if (data?.content) {
+      // Backend trả Page
+      setUsers(data.content);
+      setTotalElements(data.totalElements);
+      setTotalPages(data.totalPages);
     }
-  };
+  } catch (error) {
+    toast.error("Failed to fetch users");
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Mở modal xác nhận xóa
   const confirmDelete = (user) => {
