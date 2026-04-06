@@ -33,7 +33,7 @@ import LoadingSpinner from "../common/LoadingSpinner";
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0); // Backend page bắt đầu từ 0
+  const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalElements, setTotalElements] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -157,7 +157,6 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      console.log(`Fetching page ${currentPage}, size ${pageSize}`);
 
       const data = await userService.getAll(currentPage, pageSize);
 
@@ -287,7 +286,6 @@ const UserList = () => {
   };
 
   const handlePageChange = (page) => {
-    // Chuyển từ page hiển thị (1-based) sang page backend (0-based)
     const backendPage = page - 1;
     console.log(
       `Changing from page ${
@@ -328,12 +326,6 @@ const UserList = () => {
   // Tính toán chỉ số hiển thị
   const startIndex = currentPage * pageSize + 1;
   const endIndex = Math.min((currentPage + 1) * pageSize, totalElements);
-
-  console.log(
-    `Current page: ${
-      currentPage + 1
-    }, showing ${startIndex} to ${endIndex} of ${totalElements}`,
-  );
 
   if (loading) return <LoadingSpinner />;
 
