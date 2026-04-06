@@ -144,7 +144,9 @@ const UserList = () => {
         location.state.message === "create" &&
         location.state.goToPage !== undefined
       ) {
-        setCurrentPage(location.state.goToPage);
+        if (location.state.message === "create") {
+          setCurrentPage(Math.max(totalPages - 1, 0));
+        }
       } else {
         fetchUsers();
       }
@@ -153,29 +155,42 @@ const UserList = () => {
   }, [location.state]);
 
   const fetchUsers = async () => {
-  try {
-    setLoading(true);
-    console.log(`Fetching page ${currentPage}, size ${pageSize}`);
+    try {
+      setLoading(true);
+      console.log(`Fetching page ${currentPage}, size ${pageSize}`);
 
-    const data = await userService.getAll(currentPage, pageSize);
+      const data = await userService.getAll(currentPage, pageSize);
 
-    if (Array.isArray(data)) {
-      // Backend trả array
-      setUsers(data);
-      setTotalElements(data.length);
-      setTotalPages(1);
-    } else if (data?.content) {
-      // Backend trả Page
-      setUsers(data.content);
-      setTotalElements(data.totalElements);
-      setTotalPages(data.totalPages);
+      if (Array.isArray(data)) {
+        // Backend trả array
+        setUsers(data);
+        setTotalElements(data.length);
+        setTotalPages(1);
+      } else if (data?.content) {
+        // Backend trả Page
+        if (data?.content) {
+          const backendPage = data.pageable?.pageNumber || 0;
+          const totalPagesFromBackend = data.totalPages;
+
+          if (
+            currentPage >= totalPagesFromBackend &&
+            totalPagesFromBackend > 0
+          ) {
+            setCurrentPage(totalPagesFromBackend - 1);
+            return;
+          }
+
+          setUsers(data.content);
+          setTotalElements(data.totalElements);
+          setTotalPages(totalPagesFromBackend);
+        }
+      }
+    } catch (error) {
+      toast.error("Failed to fetch users");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    toast.error("Failed to fetch users");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   // Mở modal xác nhận xóa
   const confirmDelete = (user) => {
@@ -229,7 +244,7 @@ const UserList = () => {
 
     if (
       window.confirm(
-        `Are you sure you want to ${action} user ${targetUser.username}?`
+        `Are you sure you want to ${action} user ${targetUser.username}?`,
       )
     ) {
       try {
@@ -252,7 +267,7 @@ const UserList = () => {
         const sorted = sortUsers(
           resultsArray,
           sortConfig.key,
-          sortConfig.direction
+          sortConfig.direction,
         );
 
         setUsers(sorted);
@@ -277,7 +292,7 @@ const UserList = () => {
     console.log(
       `Changing from page ${
         currentPage + 1
-      } to page ${page} (backend page ${backendPage})`
+      } to page ${page} (backend page ${backendPage})`,
     );
     setCurrentPage(backendPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -317,7 +332,7 @@ const UserList = () => {
   console.log(
     `Current page: ${
       currentPage + 1
-    }, showing ${startIndex} to ${endIndex} of ${totalElements}`
+    }, showing ${startIndex} to ${endIndex} of ${totalElements}`,
   );
 
   if (loading) return <LoadingSpinner />;
