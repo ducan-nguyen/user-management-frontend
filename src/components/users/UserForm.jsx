@@ -107,7 +107,7 @@ const UserForm = () => {
           fullName: data.fullName,
           phoneNumber: data.phoneNumber,
           address: data.address,
-          role: isAdmin ? data.role : "ROLE_USER", // Manager luôn tạo user
+          role: isAdmin ? data.role : "ROLE_USER",
         };
 
         await userService.create(createData);
@@ -126,7 +126,32 @@ const UserForm = () => {
         });
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Operation failed");
+      let message = "Operation failed";
+
+      // Xử lý các dạng error khác nhau
+      if (error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error.message) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+
+      // Xử lý specific messages
+      if (
+        message.toLowerCase().includes("username already exists") ||
+        (message.toLowerCase().includes("duplicate key") &&
+          message.toLowerCase().includes("username"))
+      ) {
+        message = "Username already exists. Please choose another username.";
+      } else if (message.toLowerCase().includes("email already exists")) {
+        message = "Email already exists. Please use another email address.";
+      }
+
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } finally {
       setSubmitting(false);
     }

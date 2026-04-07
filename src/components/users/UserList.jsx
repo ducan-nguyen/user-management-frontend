@@ -136,7 +136,7 @@ const UserList = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [currentPage, pageSize]); // Khi currentPage thay đổi, fetch lại dữ liệu
+  }, [currentPage, pageSize]);
 
   useEffect(() => {
     if (location.state?.refresh) {
