@@ -1,14 +1,12 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import authService from "../services/auth.service";
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import authService from '../services/auth.service';
 
-// Tạo context
 const AuthContext = createContext();
 
-// Custom hook để sử dụng auth context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
+    throw new Error('useAuth must be used within AuthProvider');
   }
   return context;
 };
@@ -18,9 +16,29 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-    setUser(currentUser);
-    setLoading(false);
+    const initAuth = async () => {
+      try {
+        const currentUser = authService.getCurrentUser();
+        
+        if (currentUser && authService.isAuthenticated()) {
+          setUser(currentUser);
+        } else if (currentUser && authService.isTokenExpired()) {
+          try {
+            await authService.refreshToken();
+            setUser(authService.getCurrentUser());
+          } catch (error) {
+            console.log('Auto refresh failed, please login again');
+            authService.logout();
+          }
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    initAuth();
   }, []);
 
   const login = async (username, password) => {
@@ -29,13 +47,9 @@ export const AuthProvider = ({ children }) => {
     return userData;
   };
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
-  };
-
-  const isAuthenticated = () => {
-    return !!authService.getToken();
   };
 
   const value = {
@@ -43,8 +57,15 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     loading,
-    isAuthenticated,
+    isAuthenticated: () => authService.isAuthenticated(),
+    isAdmin: user?.role === 'ROLE_ADMIN',
+    isManager: user?.role === 'ROLE_MANAGER',
+    isUser: user?.role === 'ROLE_USER'
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
