@@ -15,6 +15,8 @@ import PrivateRoute from "./components/common/PrivateRoute";
 
 // Pages
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 // Auth Components
 import Login from "./components/auth/Login";
@@ -36,12 +38,14 @@ function App() {
           <Header />
           <main className="main-content flex-grow-1">
             <Routes>
-              {/* Public Routes */}
+              {/* ==================== PUBLIC ROUTES ==================== */}
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
-              {/* Protected Routes */}
+              {/* ==================== PROTECTED ROUTES ==================== */}
+
+              {/* User List - Admin và Manager */}
               <Route
                 path="/users"
                 element={
@@ -51,6 +55,7 @@ function App() {
                 }
               />
 
+              {/* Create User - Admin và Manager */}
               <Route
                 path="/users/new"
                 element={
@@ -60,11 +65,32 @@ function App() {
                 }
               />
 
+              {/* Edit User - Admin và Manager */}
               <Route
                 path="/users/edit/:id"
                 element={
                   <PrivateRoute>
                     <UserForm />
+                  </PrivateRoute>
+                }
+              />
+
+              {/* Profile - Tất cả user đã đăng nhập */}
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <ProfilePage />
+                  </PrivateRoute>
+                }
+              />
+
+              {/* Admin Dashboard - Chỉ Admin */}
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRoute roles={['ROLE_ADMIN']}>
+                    <AdminDashboard />
                   </PrivateRoute>
                 }
               />

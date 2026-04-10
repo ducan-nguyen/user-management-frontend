@@ -1,24 +1,39 @@
-// hooks/useAuth.js
-import { useAuth as useAuthContext } from '../context/AuthContext';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext'; // Import đúng cách
 
 export const useAuth = () => {
-  const auth = useAuthContext();
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
   
-  // Thêm các helper methods nếu cần
-  const hasRole = (role) => {
-    return auth.user?.role === role;
-  };
+  const { user, login, logout, loading, isAuthenticated, permissions, hasPermission, hasAnyPermission } = context;
   
-  const hasAnyRole = (roles) => {
-    return roles.includes(auth.user?.role);
-  };
+  const role = user?.role;
+  const isAdmin = role === 'ROLE_ADMIN';
+  const isManager = role === 'ROLE_MANAGER';
+  const isUser = role === 'ROLE_USER';
+  const canEdit = isAdmin || isManager;
+  const canDelete = isAdmin;
+  const canCreate = isAdmin || isManager;
+  const canToggleStatus = isAdmin || isManager;
   
   return {
-    ...auth,
-    hasRole,
-    hasAnyRole,
-    isAdmin: auth.user?.role === 'ROLE_ADMIN',
-    isManager: auth.user?.role === 'ROLE_MANAGER',
-    isUser: auth.user?.role === 'ROLE_USER'
+    user,
+    login,
+    logout,
+    loading,
+    isAuthenticated,
+    permissions,
+    hasPermission,
+    hasAnyPermission,
+    role,
+    isAdmin,
+    isManager,
+    isUser,
+    canEdit,
+    canDelete,
+    canCreate,
+    canToggleStatus
   };
 };
