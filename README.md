@@ -111,3 +111,22 @@ docker compose ps
 
 # Xem logs
 docker compose logs -f
+
+```
+
+### Cách 2: Chạy thủ công (Development)
+
+```bash
+# 1. Khởi tạo database
+mysql -u root -p < init.sql
+
+# 2. Chạy backend
+cd backend
+mvn spring-boot:run
+
+# 3. Chạy frontend (terminal mới)
+cd frontend
+npm install
+npm start
+
+```
